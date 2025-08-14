@@ -24,12 +24,6 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h3>Purchases</h3>
-                    <div>
-                        <a id="export-btn" class="btn btn-info">Export to Excel</a>
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#importModal">Import from Excel</button>
-                    <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#new">Create New</button>
-                    </div>
-
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -45,13 +39,10 @@
                     <table class="table" id="buttons-datatables">
                         <thead>
                             <th>#</th>
-                            <th>P_Date</th>
-                            <th>Year</th>
-                            <th>Maker</th>
-                            <th>Model</th>
-                            <th>Chassis</th>
-                            <th>Total</th>
-                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Transporter</th>
+                            <th>Container No.</th>
+                            <th>Net Cost</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -59,12 +50,9 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ date('d M Y', strtotime($purchase->date)) }}</td>
-                                    <td>{{ $purchase->year }}</td>
-                                    <td>{{ $purchase->maker }}</td>
-                                    <td>{{ $purchase->model }}</td>
-                                    <td>{{ $purchase->chassis }}</td>
-                                    <td>{{ $purchase->total }}</td>
-                                    <td><span class="badge {{$purchase->status == "Available" ? "bg-success" : "bg-danger"}}">{{$purchase->status}}</span></td>
+                                    <td>{{ $purchase->transporter->title }}</td>
+                                    <td>{{ $purchase->c_no }}</td>
+                                    <td>{{ $purchase->details->value }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
@@ -80,12 +68,12 @@
                                                     </button>
                                                 </li>
                                                 @if($purchase->status == "Available")
-                                                <li>
+                                               {{--  <li>
                                                     <a class="dropdown-item" onclick="newWindow('{{route('purchase.edit', $purchase->id)}}')">
                                                         <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                         Edit
                                                     </a>
-                                                </li>
+                                                </li> --}}
                                                 <li>
                                                     <a class="dropdown-item text-danger" href="{{route('purchases.delete', $purchase->id)}}">
                                                         <i class="ri-delete-bin-2-fill align-bottom me-2 text-danger"></i>
@@ -99,10 +87,7 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tbody>
-                            <th colspan="6" class="text-end">Total</th>
-                            <th>{{$purchases->sum('total')}}</th>
-                        </tbody>
+                        
                     </table>
                 </div>
 
