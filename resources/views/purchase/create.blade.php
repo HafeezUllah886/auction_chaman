@@ -14,90 +14,47 @@
                     </div>
                 </div><!--end row-->
                 <div class="card-body">
+                   
                     <form action="{{ route('purchase.store') }}" method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="date">Purchase Date</label>
-                                    <input type="date" name="date" id="date" value="{{ isset($lastpurchase) && $lastpurchase->date ? date('Y-m-d', strtotime($lastpurchase->date)) : date('Y-m-d') }}" class="form-control">
-                                </div>
+                            <div class="col-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Cost</th>
+                                            <th>Sale Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="items">
+                                        
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="table-active">
+                                            <td class="text-end">Total</td>
+                                            <td class="text-end"><span id="total_cost">0</span></td>
+                                            <td class="text-end"><span id="total_value">0</span></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="auction">Auction</label>
-                                    <select name="auction" id="auction" required class="form-control">
-                                        <option value="">Select Auction</option>
-                                        @foreach ($auctions as $auction)
-                                            <option value="{{ $auction->name }}" @selected(old('auction') == $auction->name)>{{ $auction->name }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="row">
+                                <div class="col-10">
+                                   
                                 </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="loot">Loot No.</label>
-                                    <input type="text" name="loot" id="loot" value="{{ old('loot') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="chessis">Chassis No.</label>
-                                    <input type="text" name="chassis" id="chessis" required value="{{ old('chassis') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="maker">Maker</label>
-                                    <input type="text" name="maker" id="maker" value="{{ old('maker') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="model">Model</label>
-                                    <input type="text" name="model" id="model" value="{{ old('model') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="year">Year</label>
-                                    <input type="text" name="year" id="year" value="{{ old('year') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="price">Price</label>
-                                    <div class="input-group mb-3">
-                                        <input type="number" name="price" id="price" oninput="updateChanges()" value="{{ old('price') ?? 0 }}" class="form-control">
-                                        <input type="number" name="ptax" id="ptax" readonly value="{{ old('ptax') ?? 0 }}" class="form-control input-group-text">
+                                <div class="col-2">
+                                    <div class="form-group mt-2">
+                                        <button type="button" onclick="addItem()" class="btn btn-success w-100">Add Item (Alt)</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-3">
                                 <div class="form-group mt-2">
-                                    <label for="recycle">Recycle</label>
-                                    <input type="number" name="recycle"oninput="updateChanges()" value="{{ old('recycle') ?? 0 }}" min="0" id="recycle" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="price">Auction Fee</label>
-                                    <div class="input-group mb-3">
-                                        <input type="number" name="afee" id="afee" oninput="updateChanges()" value="{{ old('afee') ?? 0 }}" class="form-control">
-                                        <input type="number" name="atax" id="atax" readonly value="{{ old('atax') ?? 0 }}" class="form-control input-group-text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="transport_charges">Transport Charges</label>
-                                    <input type="number" name="transport_charges" id="transport_charges" oninput="updateChanges()" value="{{ old('transport_charges') ?? 0 }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="total">Total</label>
-                                    <input type="number" name="total" value="{{ old('total') ?? 0 }}" readonly id="total" class="form-control">
+                                    <label for="transporter">Date</label>
+                                    <input type="date" name="date" id="date" value="{{ date('Y-m-d') }}" required class="form-control">
                                 </div>
                             </div>
                             <div class="col-12 col-md-3">
@@ -113,37 +70,8 @@
                             </div>
                             <div class="col-12 col-md-3">
                                 <div class="form-group mt-2">
-                                    <label for="yard">Yard</label>
-                                    <select name="yard" id="yard" required class="form-control">
-                                        <option value="">Select Yard</option>
-                                        @foreach ($yards as $yard)
-                                            <option value="{{ $yard->name }}" @selected(old('yard') == $yard->name)>{{ $yard->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="ddate">Document Received Date</label>
-                                    <input type="date" name="ddate" id="ddate" value="{{ old('ddate') ? date('Y-m-d' , strtotime(old('ddate'))) : '' }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="adate">Arrival Date</label>
-                                    <input type="date" name="adate" id="adate" value="{{ old('adate') ? date('Y-m-d' , strtotime(old('adate'))) : '' }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="number_plate">Number Plate</label>
-                                    <input type="text" name="number_plate" id="number_plate" value="{{ old('number_plate') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <div class="form-group mt-2">
-                                    <label for="nvalidity">Number Plate Validity</label>
-                                    <input type="date" name="nvalidity" id="nvalidity" value="{{ old('nvalidity') ? date('Y-m-d' , strtotime(old('nvalidity'))) : '' }}" class="form-control">
+                                    <label for="container_no">Container No</label>
+                                    <input type="text" name="container_no" id="container_no" required class="form-control">
                                 </div>
                             </div>
                             <div class="col-12 mt-2">
@@ -179,48 +107,43 @@
 @section('page-js')
     <script src="{{ asset('assets/libs/selectize/selectize.min.js') }}"></script>
     <script>
-        function updateChanges() {
-            var price = parseFloat($('#price').val());
-            var ptax = parseFloat($('#ptax').val());
-            var afee = parseFloat($('#afee').val());
-            var atax = parseFloat($('#atax').val());
-            var transport_charges = parseFloat($('#transport_charges').val());
-            var recycle = parseFloat($('#recycle').val());
-
-            var pTaxValue = price * 10 / 100;
-            var aTaxValue = afee * 10 / 100;
-
-            var amount = (price + pTaxValue + afee + aTaxValue + transport_charges + recycle);
-
-            $("#ptax").val(pTaxValue.toFixed(2));
-            $("#atax").val(aTaxValue.toFixed(2));
-            $("#total").val(amount.toFixed(2));
-
+        
+        function addItem() {
+           var html = '';
+           html += '<tr>';
+           html += '<td style="width: 50%;"><input type="text" name="item[]" class="form-control"></td>';
+           html += '<td><input type="number" name="cost[]" oninput="updateTotal()" class="form-control"></td>';
+           html += '<td><input type="number" name="sale_price[]" oninput="updateTotal()" class="form-control"></td>';
+           html += '<td><button type="button" class="btn btn-danger w-100" onclick="removeItem(this)">Delete</button></td>';
+           html += '</tr>';
+           $('#items').append(html);
+           $('#items tr:last-child input[name="item[]"]').focus();
+           updateTotal();
         }
 
-        $(document).ready(function () {
-    $('input, select, textarea').on('keypress', function (e) {
-        // Check if the Enter key is pressed
-        if (e.which === 13) {
-            e.preventDefault(); // Prevent the default Enter key behavior
+        function updateTotal() {
+            var total_cost = 0;
+            var total_sale_price = 0;
+            $('#items tr').each(function() {
+                var cost = parseFloat($(this).find('input[name="cost[]"]').val()) || 0;
+                var sale_price = parseFloat($(this).find('input[name="sale_price[]"]').val()) || 0;
+                total_cost += cost;
+                total_sale_price += sale_price;
+            });
+            $('#total_cost').text(total_cost.toFixed(0));
+            $('#total_value').text(total_sale_price.toFixed(0));
+        }
 
-            // Find all focusable elements in the form, excluding readonly fields
-            const focusable = $(this)
-                .closest('form')
-                .find('input:not([readonly]), select:not([readonly]), textarea:not([readonly]), button')
-                .filter(':visible');
+        function removeItem(button) {
+            $(button).parent().parent().remove();
+        }
 
-            // Determine the current element's index
-            const index = focusable.index(this);
-
-            // Move to the next focusable element
-            if (index > -1 && index < focusable.length - 1) {
-                focusable.eq(index + 1).focus();
+        //create keyboard short for add item
+        $(document).keydown(function(e) {
+            if (e.key === 'Alt') {
+                addItem();
             }
-        }
-    });
-});
-
-
+        });
+    
     </script>
 @endsection

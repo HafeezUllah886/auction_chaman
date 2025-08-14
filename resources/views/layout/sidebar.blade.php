@@ -2,21 +2,21 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="{{route('dashboard')}}" class="logo logo-dark">
+        <a href="{{ route('dashboard') }}" class="logo logo-dark">
             <span class="logo-sm">
-                <h3 class="text-white">{{projectNameShort()}}</h3>
+                <h3 class="text-white">{{ projectNameShort() }}</h3>
             </span>
             <span class="logo-lg">
-                <h3 class="text-white mt-3">{{projectNameHeader()}}</h3>
+                <h3 class="text-white mt-3">{{ projectNameHeader() }}</h3>
             </span>
         </a>
         <!-- Light Logo-->
-        <a href="{{route('dashboard')}}" class="logo logo-light">
+        <a href="{{ route('dashboard') }}" class="logo logo-light">
             <span class="logo-sm">
-                <h3 class="text-white">{{projectNameShort()}}</h3>
+                <h3 class="text-white">{{ projectNameShort() }}</h3>
             </span>
             <span class="logo-lg">
-                <h3 class="text-white mt-3">{{projectNameHeader()}}</h3>
+                <h3 class="text-white mt-3">{{ projectNameHeader() }}</h3>
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -56,13 +56,13 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-               
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('dashboard') }}">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
-              
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#purchase" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarApps">
@@ -75,13 +75,13 @@
                                     data-key="t-chat">Create Purchase</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('purchase.index', ['start' => firstDayOfMonth(), 'end' => now()->toDateString()]) }}" class="nav-link" data-key="t-chat"> Purchase
-                                    History </a>
+                                <a href="{{ route('purchase.index', ['start' => firstDayOfMonth(), 'end' => now()->toDateString()]) }}"
+                                    class="nav-link" data-key="t-chat"> Purchase History </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+              {{--   <li class="nav-item">
                     <a class="nav-link menu-link" href="#export" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-shopping-cart-line"></i><span data-key="t-apps">Export</span>
@@ -93,7 +93,7 @@
                                     data-key="t-chat">Create Export</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('export.index')}}" class="nav-link" data-key="t-chat"> Export
+                                <a href="{{ route('export.index') }}" class="nav-link" data-key="t-chat"> Export
                                     History </a>
                             </li>
                         </ul>
@@ -106,7 +106,7 @@
                     </a>
                     <div class="collapse menu-dropdown" id="finance">
                         <ul class="nav nav-sm flex-column">
-                           
+
                             <li class="nav-item">
                                 <a href="{{ route('receive_payments.index') }}" class="nav-link"
                                     data-key="t-chat">Receive Payment</a>
@@ -129,12 +129,11 @@
                     </a>
                     <div class="collapse menu-dropdown" id="reports">
                         <ul class="nav nav-sm flex-column">
-                           
-                            <li class="nav-item">   
-                                <a href="{{ route('reportLedger') }}" class="nav-link"
-                                    data-key="t-chat">Ledger</a>
-                            </li> 
-                            
+
+                            <li class="nav-item">
+                                <a href="{{ route('reportLedger') }}" class="nav-link" data-key="t-chat">Ledger</a>
+                            </li>
+
                         </ul>
                     </div>
                 </li>
@@ -157,50 +156,58 @@
                                 <a href="{{ route('stock.index', 'Exported') }}" class="nav-link"
                                     data-key="t-chat">Exported</a>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </li>
-               
                 <li class="nav-item">
-                            <a class="nav-link menu-link" href="#settings" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMultilevel">
-                                <i class="ri-settings-2-line"></i> <span data-key="t-multi-level">Settings</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="settings">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('yards.index') }}" class="nav-link" data-key="t-level-1.1"> Yards </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('auctions.index') }}" class="nav-link" data-key="t-level-1.1"> Auctions </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('parts.index') }}" class="nav-link" data-key="t-level-1.1"> Parts </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#sidebarAccount" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAccount" data-key="t-level-1.2"> 
-                                            Accounts
-                                        </a>
-                                        <div class="collapse menu-dropdown" id="sidebarAccount">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="{{ route('account.create') }}" class="nav-link" data-key="t-level-2.1"> Create Account </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('accountsList', 'Bank') }}" class="nav-link" data-key="t-level-2.1"> Bank </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('accountsList', 'Consignee') }}" class="nav-link" data-key="t-level-2.1"> Consignee </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('accountsList', 'Transporter') }}" class="nav-link" data-key="t-level-2.1"> Transporter </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                    <a class="nav-link menu-link" href="#settings" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarMultilevel">
+                        <i class="ri-settings-2-line"></i> <span data-key="t-multi-level">Settings</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="settings">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('yards.index') }}" class="nav-link" data-key="t-level-1.1"> Yards
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('auctions.index') }}" class="nav-link" data-key="t-level-1.1">
+                                    Auctions </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('parts.index') }}" class="nav-link" data-key="t-level-1.1"> Parts
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarAccount" class="nav-link" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="false" aria-controls="sidebarAccount" data-key="t-level-1.2">
+                                    Accounts
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarAccount">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('account.create') }}" class="nav-link"
+                                                data-key="t-level-2.1"> Create Account </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('accountsList', 'Bank') }}" class="nav-link"
+                                                data-key="t-level-2.1"> Bank </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('accountsList', 'Consignee') }}" class="nav-link"
+                                                data-key="t-level-2.1"> Consignee </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('accountsList', 'Transporter') }}" class="nav-link"
+                                                data-key="t-level-2.1"> Transporter </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li> --}}
             </ul>
         </div>
         <!-- Sidebar -->

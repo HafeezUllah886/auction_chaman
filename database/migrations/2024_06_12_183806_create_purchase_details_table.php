@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('purchases', function (Blueprint $table) {
+        Schema::create('purchase_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transporter_id')->constrained('accounts', 'id')->cascadeOnDelete();
-            $table->string("c_no");
+            $table->foreignId('purchase_id')->constrained('purchases', 'id')->cascadeOnDelete();
+            $table->text("item");
+            $table->float("cost");
+            $table->float("sale_price");
             $table->date("date");
-            $table->float("value")->nullable();
-            $table->text('notes')->nullable();
-            $table->bigInteger('refID');
+            $table->bigInteger('sale_id')->nullable();
+            $table->string('status')->default('Available');
             $table->timestamps();
-            
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('purchase_details');
     }
 };

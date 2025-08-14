@@ -40,14 +40,9 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $yards = yards::all();
-        $auctions = auctions::all();
-
-        $lastpurchase = purchase::orderby('id', 'desc')->first();
-
         $transporters = accounts::where('type', 'Transporter')->get();
 
-        return view('purchase.create', compact('auctions', 'yards', 'lastpurchase', 'transporters'));
+        return view('purchase.create', compact('transporters'));
     }
 
     /**
@@ -59,41 +54,50 @@ class PurchaseController extends Controller
         {
             $request->validate(
                 [
-                    'chassis'   =>  'required|unique:purchases,chassis',
+                    'transporter'   =>  'required',
+                    'date'          =>  'required',
+                    'container_no'  =>  'required',
                 ],
                 [
-                    'chassis.unique' => 'Chassis No. Already Exist',
+                    'transporter.required' => 'Transporter is required',
+                    'date.required'        => 'Date is required',
+                    'container_no.required'=> 'Container No. is required',
                 ]
             );
             DB::beginTransaction();
             $ref = getRef();
+
             $purchase = purchase::create(
                 [
-                    "transporter_id"        =>  $request->transporter,
-                    "year"                  =>  $request->year,
-                    "maker"                 =>  $request->maker,
-                    "model"                 =>  $request->model,
-                    "chassis"               =>  $request->chassis,
-                    "loot"                  =>  $request->loot,
-                    "yard"                  =>  $request->yard,
-                    "date"                  =>  $request->date,
-                    "auction"               =>  $request->auction,
-                    "price"                 =>  $request->price,
-                    "ptax"                  =>  $request->ptax,
-                    "afee"                  =>  $request->afee,
-                    "atax"                  =>  $request->atax,
-                    "transport_charges"     =>  $request->transport_charges,
-                    "total"                 =>  $request->total,
-                    "recycle"               =>  $request->recycle,
-                    "adate"                 =>  $request->adate,
-                    "ddate"                 =>  $request->ddate,
-                    "number_plate"          =>  $request->number_plate,
-                    "nvalidity"             =>  $request->nvalidity,
-                    "notes"                 =>  $request->notes,
-                    "refID"                 =>  $ref,
+                    "transporter_id"    =>  $request->transporter,
+                    "date"              =>  $request->date,
+                    "c_no"      =>  $request->container_no,
+                    "refID"             =>  $ref,
                 ]
             );
 
+            $items = $request->item;
+            $value = 0;
+
+            foreach($items as $key => $item)
+            {
+                $value += $request->sale_price[$key];
+                purchase_details::create(
+                    [
+                        "purchase_id"   =>  $purchase->id,
+                        "item"          =>  $item,
+                        "date"          =>  $request->date,
+                        "cost"          =>  $request->cost[$key],
+                        "sale_price"    =>  $request->sale_price[$key],
+                    ]
+                );
+            }
+            $purchase->update(
+                [
+                    "value"         =>  $value,
+                ]
+            );
+          
             DB::commit();
             return to_route('purchase.show', $purchase->id)->with('success', "Purchase Created");
         }
@@ -107,8 +111,10 @@ class PurchaseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(purchase $purchase)
+    public function show($id)
     {
+        $purchase = purchase::find($id);
+
         return view('purchase.view', compact('purchase'));
     }
 

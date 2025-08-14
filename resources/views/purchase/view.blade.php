@@ -25,81 +25,46 @@
                             <div class="card-body p-4">
                                 <div class="row g-3">
                                     <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Year</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->year}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Maker</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->maker}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Model</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->model}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Chassis #</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->chassis}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Loot No.</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->loot}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Yard</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->yard}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Purchase Date</p>
+                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Date</p>
                                         <h5 class="fs-14 mb-0">{{date("d M Y", strtotime($purchase->date))}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Auction</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->auction}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Price</p>
-                                        <h5 class="fs-14 mb-0">{{number_format($purchase->price)}}</h5>
-                                        <h5 class="fs-14 mb-0">{{number_format($purchase->ptax)}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Tax</p>
-                                        <h5 class="fs-14 mb-0">{{number_format($purchase->afee)}}</h5>
-                                        <h5 class="fs-14 mb-0">{{number_format($purchase->atax)}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Transport Charges</p>
-                                        <h5 class="fs-14 mb-0">{{number_format($purchase->transport_charges)}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Recycle</p>
-                                        <h5 class="fs-14 mb-0">{{number_format($purchase->recycle)}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Total</p>
-                                        <h5 class="fs-14 mb-0">{{number_format($purchase->total)}}</h5>
                                     </div>
                                     <div class="col-lg-3 col-6">
                                         <p class="text-muted mb-2 text-uppercase fw-semibold">Transporter</p>
                                         <h5 class="fs-14 mb-0">{{$purchase->transporter->title}}</h5>
                                     </div>
-
                                     <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Arrival Date</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->adate == null ? "-" : date("d M Y", strtotime($purchase->adate))}}</h5>
+                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Container No.</p>
+                                        <h5 class="fs-14 mb-0">{{$purchase->c_no}}</h5>
                                     </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Document Received Date</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->ddate ? date("d M Y", strtotime($purchase->ddate)) : "-"}}</h5>
+                                    <div class="col-12">
+                                       <table class="table table-bordered">
+                                            <thead>
+                                                <tr class="table-active">
+                                                    <th>Item</th>
+                                                    <th>Cost</th>
+                                                    <th>Sale Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($purchase->details as $detail)
+                                                <tr>
+                                                    <td>{{$detail->item}}</td>
+                                                    <td>{{$detail->cost}}</td>
+                                                    <td>{{$detail->sale_price}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="table-active">
+                                                    <th>Total</th>
+                                                    <th>{{$purchase->details->sum('cost')}}</th>
+                                                    <th>{{$purchase->details->sum('sale_price')}}</th>
+                                                </tr>
+                                            </tfoot>
+                                       </table>
                                     </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Number Plate</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->number_plate}}</h5>
-                                    </div>
-                                    <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Number Plate Validity</p>
-                                        <h5 class="fs-14 mb-0">{{$purchase->nvalidity ? date("d M Y", strtotime($purchase->nvalidity)) : "-"}}</h5>
-                                    </div>
-
+                                   
+                                   
                                 </div>
                                 <!--end row-->
                             </div>

@@ -15,4 +15,9 @@ class purchase extends Model
         return $this->belongsTo(accounts::class, 'transporter_id', 'id');
     }
 
+    public function details()
+    {
+        return $this->hasMany(purchase_details::class, 'purchase_id', 'id');
+    }
+
 }
