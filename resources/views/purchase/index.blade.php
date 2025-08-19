@@ -40,7 +40,7 @@
                         <thead>
                             <th>#</th>
                             <th>Date</th>
-                            <th>Transporter</th>
+                            <th>BL No.</th>
                             <th>Container No.</th>
                             <th>Net Cost</th>
                             <th>Action</th>
@@ -50,12 +50,12 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ date('d M Y', strtotime($purchase->date)) }}</td>
-                                    <td>{{ $purchase->transporter->title }}</td>
+                                    <td>{{ $purchase->bl_no }}</td>
                                     <td>{{ $purchase->c_no }}</td>
-                                    <td>{{ $purchase->details->value }}</td>
+                                    <td>{{ $purchase->net_amount }}</td>
                                     <td>
                                         <div class="dropdown">
-                                            <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
+                                           {{--  <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="ri-more-fill align-middle"></i>
                                             </button>
@@ -66,21 +66,8 @@
                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                         View
                                                     </button>
-                                                </li>
-                                                @if($purchase->status == "Available")
-                                               {{--  <li>
-                                                    <a class="dropdown-item" onclick="newWindow('{{route('purchase.edit', $purchase->id)}}')">
-                                                        <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                                                        Edit
-                                                    </a>
                                                 </li> --}}
-                                                <li>
-                                                    <a class="dropdown-item text-danger" href="{{route('purchases.delete', $purchase->id)}}">
-                                                        <i class="ri-delete-bin-2-fill align-bottom me-2 text-danger"></i>
-                                                        Delete
-                                                    </a>
-                                                </li>
-                                                @endif
+                                               
                                             </ul>
                                         </div>
                                     </td>

@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transporter_id')->constrained('accounts', 'id')->cascadeOnDelete();
             $table->string("c_no");
+            $table->string("bl_no");
+            $table->decimal("bl_amount", 15,2);
+            $table->decimal("container_amount", 15,2);
+            $table->decimal("net_amount", 15,2);
             $table->date("date");
-            $table->float("value")->nullable();
             $table->text('notes')->nullable();
             $table->bigInteger('refID');
             $table->timestamps();

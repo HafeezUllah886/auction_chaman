@@ -52,54 +52,24 @@ class PurchaseController extends Controller
     {
        try
         {
-            $request->validate(
-                [
-                    'transporter'   =>  'required',
-                    'date'          =>  'required',
-                    'container_no'  =>  'required',
-                ],
-                [
-                    'transporter.required' => 'Transporter is required',
-                    'date.required'        => 'Date is required',
-                    'container_no.required'=> 'Container No. is required',
-                ]
-            );
+           
             DB::beginTransaction();
             $ref = getRef();
 
             $purchase = purchase::create(
                 [
-                    "transporter_id"    =>  $request->transporter,
                     "date"              =>  $request->date,
-                    "c_no"      =>  $request->container_no,
+                    "c_no"              =>  $request->container_no,
+                    "bl_no"             =>  $request->bl_no,
+                    "bl_amount"         =>  $request->bl_amount,
+                    "container_amount"  =>  $request->container_amount,
+                    "net_amount"        =>  $request->net_amount,
                     "refID"             =>  $ref,
                 ]
             );
 
-            $items = $request->item;
-            $value = 0;
-
-            foreach($items as $key => $item)
-            {
-                $value += $request->sale_price[$key];
-                purchase_details::create(
-                    [
-                        "purchase_id"   =>  $purchase->id,
-                        "item"          =>  $item,
-                        "date"          =>  $request->date,
-                        "cost"          =>  $request->cost[$key],
-                        "sale_price"    =>  $request->sale_price[$key],
-                    ]
-                );
-            }
-            $purchase->update(
-                [
-                    "value"         =>  $value,
-                ]
-            );
-          
             DB::commit();
-            return to_route('purchase.show', $purchase->id)->with('success', "Purchase Created");
+            return to_route('purchase.index')->with('success', "Purchase Created");
         }
         catch(\Exception $e)
         {
