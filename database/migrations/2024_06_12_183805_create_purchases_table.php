@@ -18,6 +18,8 @@ return new class extends Migration
             $table->decimal("bl_amount", 15,2);
             $table->decimal("container_amount", 15,2);
             $table->decimal("net_amount", 15,2);
+            $table->decimal("conversion_rate", 15,2);
+            $table->decimal("net_pkr", 15,2);
             $table->date("date");
             $table->text('notes')->nullable();
             $table->bigInteger('refID');

@@ -43,6 +43,7 @@
                             <th>BL No.</th>
                             <th>Container No.</th>
                             <th>Net Cost</th>
+                            <th>Net PKR</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -53,6 +54,7 @@
                                     <td>{{ $purchase->bl_no }}</td>
                                     <td>{{ $purchase->c_no }}</td>
                                     <td>{{ $purchase->net_amount }}</td>
+                                    <td>{{ $purchase->net_pkr }}</td>
                                     <td>
                                         <div class="dropdown">
                                            {{--  <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
@@ -82,29 +84,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="importModalLabel">Import Purchases</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('purchases.import') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="file" class="form-label">Choose Excel File | <a href="{{route('download.sample')}}">Download Sample File</a></label>
-                            <input type="file" required name="excel" id="excel" accept=".xlsx" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Import</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <!-- Default Modals -->
-
-
 @endsection
 
 @section('page-css')
@@ -124,9 +105,7 @@
     <script src="{{ asset('assets/libs/datatable/vfs_fonts.js')}}"></script>
     <script src="{{ asset('assets/libs/datatable/pdfmake.min.js')}}"></script>
     <script src="{{ asset('assets/libs/datatable/jszip.min.js')}}"></script>
-
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             $('#export-btn').click(function() {

@@ -42,7 +42,9 @@ class PurchaseController extends Controller
     {
         $transporters = accounts::where('type', 'Transporter')->get();
 
-        return view('purchase.create', compact('transporters'));
+        $rate = purchase::latest()->first()->conversion_rate ?? 0;
+
+        return view('purchase.create', compact('transporters', 'rate'));
     }
 
     /**
@@ -64,6 +66,8 @@ class PurchaseController extends Controller
                     "bl_amount"         =>  $request->bl_amount,
                     "container_amount"  =>  $request->container_amount,
                     "net_amount"        =>  $request->net_amount,
+                    "conversion_rate"   =>  $request->conversion_rate,
+                    "net_pkr"           =>  $request->net_pkr,
                     "refID"             =>  $ref,
                 ]
             );

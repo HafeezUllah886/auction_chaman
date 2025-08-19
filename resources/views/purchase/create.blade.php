@@ -56,6 +56,18 @@
                                     <input type="number" name="net_amount" id="net_amount" readonly value="0" required class="form-control">
                                 </div>
                             </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group mt-2">
+                                    <label for="conversion_rate">Conversion Rate</label>
+                                    <input type="number" name="conversion_rate" id="conversion_rate" min="0" oninput="convertToPkr()" step="any" value="{{ $rate }}" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group mt-2">
+                                    <label for="net_pkr">Net PKR</label>
+                                    <input type="number" name="net_pkr" id="net_pkr" readonly value="0" required class="form-control">
+                                </div>
+                            </div>
                             <div class="col-12 mt-2">
                                 <div class="form-group mt-2">
                                     <label for="notes">Notes</label>
@@ -98,7 +110,14 @@
            var container_amount = $('#container_amount').val();
            total = parseFloat(bl_amount) + parseFloat(container_amount);
            $('#net_amount').val(total);
+           convertToPkr();
        }
     
+       function convertToPkr() {
+           var net_amount = $('#net_amount').val();
+           var conversion_rate = $('#conversion_rate').val();
+           var net_pkr = parseFloat(net_amount) * parseFloat(conversion_rate);
+           $('#net_pkr').val(net_pkr.toFixed(0));
+       }
     </script>
 @endsection
