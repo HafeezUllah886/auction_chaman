@@ -4,13 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class export_cars extends Model
+class sales extends Model
 {
     protected $guarded = [];
 
-    public function export()
+    public function sale_cars()
     {
-        return $this->belongsTo(export::class);
+        return $this->hasMany(sale_cars::class);
+    }
+
+    public function sale_parts()
+    {
+        return $this->hasMany(sale_parts::class);
     }
 
     public function purchase()

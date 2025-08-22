@@ -159,7 +159,7 @@
 
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#settings" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarMultilevel">
@@ -167,7 +167,7 @@
                     </a>
                     <div class="collapse menu-dropdown" id="settings">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+                          {{--   <li class="nav-item">
                                 <a href="{{ route('yards.index') }}" class="nav-link" data-key="t-level-1.1"> Yards
                                 </a>
                             </li>
@@ -178,7 +178,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('parts.index') }}" class="nav-link" data-key="t-level-1.1"> Parts
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="#sidebarAccount" class="nav-link" data-bs-toggle="collapse" role="button"
                                     aria-expanded="false" aria-controls="sidebarAccount" data-key="t-level-1.2">
@@ -191,23 +191,19 @@
                                                 data-key="t-level-2.1"> Create Account </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('accountsList', 'Bank') }}" class="nav-link"
-                                                data-key="t-level-2.1"> Bank </a>
+                                            <a href="{{ route('accountsList', 'Business') }}" class="nav-link"
+                                                data-key="t-level-2.1"> Business </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('accountsList', 'Consignee') }}" class="nav-link"
-                                                data-key="t-level-2.1"> Consignee </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('accountsList', 'Transporter') }}" class="nav-link"
-                                                data-key="t-level-2.1"> Transporter </a>
+                                            <a href="{{ route('accountsList', 'Customer') }}" class="nav-link"
+                                                data-key="t-level-2.1"> Customer </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                </li> --}}
+                </li> 
             </ul>
         </div>
         <!-- Sidebar -->

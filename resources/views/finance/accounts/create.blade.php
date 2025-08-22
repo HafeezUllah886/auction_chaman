@@ -30,54 +30,35 @@
                                 <div class="form-group mt-2">
                                     <label for="type">Type</label>
                                     <select name="type" id="type" class="form-control">
-                                        <option value="Consignee">Consignee</option>
-                                        <option value="Transporter">Transporter</option>
-                                        <option value="Bank">Bank</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Customer">Customer</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-6 mt-2" >
-                                <div class="form-group consignee transporter">
-                                    <label for="tel">Tel #</label>
-                                    <input type="text" name="tel" id="tel" value="{{ old('tel') }}"
-                                        class="form-control">
+                                <div class="form-group customer">
+                                    <label for="currency">Currency</label>
+                                   <select name="currency" id="currency" class="form-control">
+                                    <option value="PKR">PKR</option>
+                                    <option value="AFG">AFG</option>
+                                   </select>
                                 </div>
                             </div>
                             <div class="col-6 mt-2" >
-                                <div class="form-group consignee transporter">
-                                    <label for="email">Email #</label>
-                                    <input type="email" name="email" id="email" value="{{ old('email') }}"
+                                <div class="form-group customer">
+                                    <label for="contact">Contact #</label>
+                                    <input type="text" name="contact" id="contact" value="{{ old('contact') }}"
                                         class="form-control">
                                 </div>
                             </div>
-                            <div class="col-6 mt-2 consignee" >
+                            <div class="col-6 mt-2 customer" >
                                 <div class="form-group">
-                                    <label for="address_one">Address Line One</label>
-                                    <input type="text" name="address_one" id="address_one" value="{{ old('address_one') }}"
+                                    <label for="address">Address</label>
+                                    <input type="text" name="address" id="address" value="{{ old('address') }}"
                                         class="form-control">
                                 </div>
                             </div>
-                            <div class="col-6 mt-2 consignee" >
-                                <div class="form-group">
-                                    <label for="address_two">Address Line Two</label>
-                                    <input type="text" name="address_two" id="address_two" value="{{ old('address_two') }}"
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-6 mt-2 consignee" >
-                                <div class="form-group">
-                                    <label for="license">License #</label>
-                                    <input type="text" name="license" id="license" value="{{ old('license') }}"
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-6 mt-2 consignee" >
-                                <div class="form-group">
-                                    <label for="po_box">PO Box</label>
-                                    <input type="text" name="po_box" id="po_box" value="{{ old('po_box') }}"
-                                        class="form-control">
-                                </div>
-                            </div>
+                        
                             <div class="col-12 mt-3">
                                 <button type="submit" class="btn btn-secondary w-100">Create</button>
                             </div>
@@ -102,21 +83,20 @@
         $("#type").on("change",  function (){
             var type = $("#type").find(":selected").val();
 
-            if(type === "Consignee")
+            if(type === "Customer")
             {
-                $(".transporter").hide();
-                $(".consignee").show();
+                $(".customer").show();
             }
-            else if(type === "Transporter")
+            else if(type === "Business")
             {
                
-                $(".consignee").hide();
-                $(".transporter").show();
+                $(".customer").hide();
+                $(".businesss").show();
             }
             else
             {
-                $(".consignee").hide();
-                $(".transporter").hide();
+                $(".customer").hide();
+                $(".business").hide();
             }
         });
     </script>

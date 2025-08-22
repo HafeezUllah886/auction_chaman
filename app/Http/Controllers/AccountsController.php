@@ -51,18 +51,16 @@ class AccountsController extends Controller
         try
         {
             DB::beginTransaction();
-                if($request->type == "Consignee")
+                if($request->type == "Customer")
                 {
                     $account = accounts::create(
                         [
                             'title' => $request->title,
                             'type' => $request->type,
-                            'address_one' => $request->address_one,
-                            'address_two' => $request->address_two,
-                            'license' => $request->license,
-                            'email' => $request->email,
-                            'tel' => $request->tel,
-                            'po_box' => $request->po_box,
+                            'address' => $request->address,
+                            'contact' => $request->contact,
+                            'currency' => $request->currency,
+                          
                         ]
                     );
                 }
@@ -72,8 +70,7 @@ class AccountsController extends Controller
                     [
                         'title' => $request->title,
                         'type' => $request->type,
-                        'email' => $request->email,
-                        'tel'   => $request->tel,
+                        
                     ]
                   );
                 }
@@ -82,6 +79,7 @@ class AccountsController extends Controller
         }
         catch(\Exception $e)
         {
+            DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
     }
@@ -132,12 +130,9 @@ class AccountsController extends Controller
         $account = accounts::find($account->id)->update(
             [
                 'title' => $request->title,
-                'address_one' => $request->address_one,
-                'address_two' => $request->address_two,
-                'license' => $request->license,
-                'tel' => $request->tel,
-                'email' => $request->email,
-                'po_box' => $request->po_box,
+                'address' => $request->address,
+                'contact' => $request->contact,
+                'currency' => $request->currency,
             ]
         );
 

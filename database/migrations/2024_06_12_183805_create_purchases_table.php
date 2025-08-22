@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal("conversion_rate", 15,2);
             $table->decimal("net_pkr", 15,2);
             $table->date("date");
+            $table->integer('sale_id')->nullable();
             $table->text('notes')->nullable();
             $table->bigInteger('refID');
             $table->timestamps();
