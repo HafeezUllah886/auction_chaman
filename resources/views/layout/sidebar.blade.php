@@ -81,85 +81,21 @@
                         </ul>
                     </div>
                 </li>
-              {{--   <li class="nav-item">
-                    <a class="nav-link menu-link" href="#export" data-bs-toggle="collapse" role="button"
+              <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sale" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-shopping-cart-line"></i><span data-key="t-apps">Export</span>
+                        <i class="ri-shopping-cart-line"></i><span data-key="t-apps">Sale</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="export">
+                    <div class="collapse menu-dropdown" id="sale">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a onclick="newWindow('{{ route('export.create') }}')" class="nav-link"
-                                    data-key="t-chat">Create Export</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('export.index') }}" class="nav-link" data-key="t-chat"> Export
+                                <a href="{{ route('sale.index') }}" class="nav-link" data-key="t-chat"> Sales
                                     History </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#finance" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-wallet-2-line"></i><span data-key="t-apps">Finance</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="finance">
-                        <ul class="nav nav-sm flex-column">
-
-                            <li class="nav-item">
-                                <a href="{{ route('receive_payments.index') }}" class="nav-link"
-                                    data-key="t-chat">Receive Payment</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('issue_payments.index') }}" class="nav-link"
-                                    data-key="t-chat">Issue Payment</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('payment_categories.index') }}" class="nav-link"
-                                    data-key="t-chat">Payment Category</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#reports" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-file-list-line"></i><span data-key="t-apps">Reports</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="reports">
-                        <ul class="nav nav-sm flex-column">
-
-                            <li class="nav-item">
-                                <a href="{{ route('reportLedger') }}" class="nav-link" data-key="t-chat">Ledger</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#stock" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="stock">
-                        <i class="ri-car-line"></i><span data-key="t-apps">Stock</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="stock">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('stock.index', 'All') }}" class="nav-link"
-                                    data-key="t-chat">All</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('stock.index', 'Available') }}" class="nav-link"
-                                    data-key="t-chat">Available</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('stock.index', 'Exported') }}" class="nav-link"
-                                    data-key="t-chat">Exported</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li> --}}
+               
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#settings" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarMultilevel">
@@ -167,18 +103,7 @@
                     </a>
                     <div class="collapse menu-dropdown" id="settings">
                         <ul class="nav nav-sm flex-column">
-                          {{--   <li class="nav-item">
-                                <a href="{{ route('yards.index') }}" class="nav-link" data-key="t-level-1.1"> Yards
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('auctions.index') }}" class="nav-link" data-key="t-level-1.1">
-                                    Auctions </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('parts.index') }}" class="nav-link" data-key="t-level-1.1"> Parts
-                                </a>
-                            </li> --}}
+                        
                             <li class="nav-item">
                                 <a href="#sidebarAccount" class="nav-link" data-bs-toggle="collapse" role="button"
                                     aria-expanded="false" aria-controls="sidebarAccount" data-key="t-level-1.2">

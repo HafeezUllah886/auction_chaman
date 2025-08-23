@@ -8,18 +8,15 @@ class accounts extends Model
 {
     protected $guarded = [];
 
-    public function scopeConsignee($query)
+    public function scopeCustomer($query)
     {
-        return $query->where('type', 'Consignee');
+        return $query->where('type', 'Customer');
     }
 
-    public function scopeTransporter($query)
+    public function scopeBusiness($query)
     {
-        return $query->where('type', 'Transporter');
+        return $query->where('type', 'Business');
     }
 
-    public function scopeBank($query)
-    {
-        return $query->where('type', 'Bank');
-    }
+   
 }
