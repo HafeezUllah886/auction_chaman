@@ -125,6 +125,7 @@
                             </div>
                         </div>
 
+                       <div class="row">
                         <div class="col-3 mt-2">
                             <div class="form-group">
                                 <label for="date">Date</label>
@@ -132,7 +133,20 @@
                                     value="{{ date('Y-m-d') }}">
                             </div>
                         </div>
+                        <div class="col-3 mt-2">
+                            <div class="form-group">
+                                <label for="other_expenses">Other Expenses</label>
+                                <input type="number" step="any" class="form-control" id="other_expenses" oninput="calculateTotal()" name="other_expenses" value="0">
+                            </div>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <div class="form-group">
+                                <label for="notes">Notes</label>
+                                <input type="text" class="form-control" required name="notes">
+                            </div>
+                        </div>
 
+                       </div>
                         <div class="col-12 mt-2">
                             <button type="submit" class="btn btn-primary w-100">Create Sale</button>
                         </div>
@@ -266,7 +280,8 @@
 
             var total = totalCarPrice + totalPartsPrice;
             $('#total').text(total.toFixed(0));
-            var profit_loose = total - {{$purchase->net_pkr}};
+            var other_expenses = parseFloat($('#other_expenses').val());
+            var profit_loose = total - ({{$purchase->net_pkr}} + other_expenses);
             $('#profit_loose').text(profit_loose.toFixed(0));
 
         }
