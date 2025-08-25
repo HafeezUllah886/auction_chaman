@@ -10,8 +10,8 @@
                                 <div class="col-6">
                                     <h3> Create Sale </h3>
                                 </div>
-                                <div class="col-6 d-flex flex-row-reverse"><button onclick="window.close()"
-                                        class="btn btn-danger">Close</button></div>
+                                <div class="col-6 d-flex flex-row-reverse"><a href="{{ route('sale.index') }}"
+                                        class="btn btn-danger">Close</a></div>
                             </div>
                         </div>
                     </div>
@@ -105,6 +105,7 @@
                                 <div class="col-2">
                                     <p class="text-muted mb-2 text-uppercase fw-semibold">Container #</p>
                                     <h5 class="fs-14 mb-0">{{$purchase->c_no}}</h5>
+                                    <input type="hidden" name="purchase_id" value="{{$purchase->id}}">
                                 </div>
                                 <div class="col-2">
                                     <p class="text-muted mb-2 text-uppercase fw-semibold">BL #</p>
@@ -117,6 +118,7 @@
                                 <div class="col-2">
                                     <p class="text-muted mb-2 text-uppercase fw-semibold">Total</p>
                                     <h5 class="fs-14 mb-0" id="total">0</h5>
+                                    <input type="hidden" name="total" id="total_amount">
                                 </div>
                                 <div class="col-2">
                                     <p class="text-muted mb-2 text-uppercase fw-semibold">Profit / Loose</p>
@@ -142,7 +144,7 @@
                         <div class="col-6 mt-2">
                             <div class="form-group">
                                 <label for="notes">Notes</label>
-                                <input type="text" class="form-control" required name="notes">
+                                <input type="text" class="form-control" name="notes">
                             </div>
                         </div>
 
@@ -195,13 +197,15 @@
         var car_id = 0;
         var lastSelectedCustomer = '';
 
+        var car_id = 0;
         function addCar() {
             // Get the last selected customer if any row exists
             if ($('#cars_list tr').length > 0) {
                 lastSelectedCustomer = $('#cars_list tr:last select[name="customer[]"]').val();
             }
 
-            var car_id = Date.now(); // Use timestamp for unique ID
+            car_id++;
+             // Use timestamp for unique ID
             var options = '';
 
             // Use Array.prototype.map on the customers array
@@ -280,6 +284,7 @@
 
             var total = totalCarPrice + totalPartsPrice;
             $('#total').text(total.toFixed(0));
+            $('#total_amount').val(total.toFixed(0));
             var other_expenses = parseFloat($('#other_expenses').val());
             var profit_loose = total - ({{$purchase->net_pkr}} + other_expenses);
             $('#profit_loose').text(profit_loose.toFixed(0));
@@ -295,6 +300,7 @@
 
             calculateTotal();
         }
+        var part_id = 0; //
 
         function addParts() {
             // Get the last selected customer if any row exists
@@ -302,7 +308,7 @@
                 lastSelectedCustomer = $('#parts_list tr:last select[name="customer[]"]').val();
             }
 
-            var part_id = Date.now(); // Use timestamp for unique ID
+           part_id++; // Use timestamp for unique ID
             var options = '';
 
             // Use Array.prototype.map on the customers array

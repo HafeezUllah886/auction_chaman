@@ -16,10 +16,12 @@ return new class extends Migration
             $table->foreignId('sales_id')->constrained('sales','id')->cascadeOnDelete();
             $table->foreignId('customer_id')->constrained('accounts','id')->cascadeOnDelete();
             $table->text('chassis_no');
+            $table->text('desc')->nullable();
             $table->decimal('price_pkr',15,2)->default(0);
             $table->decimal('conversion_rate',15,2)->default(0);
             $table->decimal('price_afg',15,2)->default(0);
             $table->date('date')->default(now());
+            $table->text('remarks')->nullable();
             $table->bigInteger('refID');
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sale_details');
+        Schema::dropIfExists('sale_cars');
     }
 };

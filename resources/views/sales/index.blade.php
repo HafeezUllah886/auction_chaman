@@ -40,10 +40,11 @@
                     <table class="table" id="buttons-datatables">
                         <thead>
                             <th>#</th>
-                            <th>Inv #</th>
+                            <th>Sale #</th>
                             <th>C/No</th>
                             <th>BL No</th>
                             <th>Date</th>
+                            <th>Other Expenses</th>
                             <th>Amount</th>
                             <th>Action</th>
                         </thead>
@@ -52,11 +53,11 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $sale->id }}</td>
-                                    <td>{{ $sale->c_no }}</td>
-                                    <td>{{ $sale->bl_no }}</td>
+                                    <td>{{ $sale->purchase->c_no }}</td>
+                                    <td>{{ $sale->purchase->bl_no }}</td>
                                     <td>{{ date('d M Y', strtotime($sale->date)) }}</td>
+                                    <td>{{ number_format($sale->other_expenses) }}</td>
                                     <td>{{ number_format($sale->amount) }}</td>
-                                 
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-soft-secondary btn-sm dropdown" type="button"

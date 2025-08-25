@@ -8,18 +8,18 @@ class sales extends Model
 {
     protected $guarded = [];
 
-    public function sale_cars()
+    public function cars()
     {
         return $this->hasMany(sale_cars::class);
     }
 
-    public function sale_parts()
+    public function parts()
     {
         return $this->hasMany(sale_parts::class);
     }
 
     public function purchase()
     {
-        return $this->belongsTo(purchase::class);
+        return $this->belongsTo(purchase::class, 'purchases_id', 'id');
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->foreignId('purchases_id')->constrained('purchases','id')->cascadeOnDelete();
+            $table->decimal('other_expenses',15,2)->default(0);
             $table->decimal('amount',15,2)->default(0);
             $table->text('notes')->nullable();
             $table->bigInteger('refID');

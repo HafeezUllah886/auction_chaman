@@ -6,7 +6,10 @@ use App\Models\sales;
 use App\Http\Controllers\Controller;
 use App\Models\accounts;
 use App\Models\purchase;
+use App\Models\sale_cars;
+use App\Models\sale_parts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
@@ -43,15 +46,77 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $ref = getRef();
+            
+            $sale = sales::create([
+                'date' => $request->date,
+                'purchases_id' => $request->purchase_id,
+                'other_expenses' => $request->other_expenses,
+                'amount' => $request->total,
+                'notes' => $request->notes,
+                'refID' => $ref,
+            ]);
+
+            $cars = $request->chassis_no;
+            if($cars){
+                foreach ($cars as $key => $car) {
+                    sale_cars::create(
+                        [
+                            'sales_id' => $sale->id,
+                            'chassis_no' => $car,
+                            'customer_id' => $request->customer[$key],
+                            'desc' => $request->desc[$key],
+                            'price_pkr' => $request->car_price[$key],
+                            'conversion_rate' => $request->car_rate[$key],
+                            'price_afg' => $request->car_afg[$key],
+                            'remarks' => $request->remarks[$key],
+                            'date' => $request->date,
+                            'refID' => $ref,
+                        ]
+                    );
+                }
+            }
+
+            $parts = $request->part_desc;
+            if($parts){
+                foreach ($parts as $key => $part) {
+                    sale_parts::create(
+                        [
+                            'sales_id' => $sale->id,
+                            'customer_id' => $request->part_customer[$key],
+                            'description' => $part,
+                            'qty' => $request->qty[$key],
+                            'price_pkr' => $request->part_price[$key],
+                            'conversion_rate' => $request->part_rate[$key],
+                            'price_afg' => $request->part_afg[$key],
+                            'date' => $request->date,
+                            'refID' => $ref,
+                        ]
+                    );
+                }
+            }
+
+            $purchase = purchase::find($request->purchase_id);
+            $purchase->sale_id = $sale->id;
+            $purchase->save();
+            DB::commit();
+            return redirect()->route('sale.index')->with('success', 'Sale created successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(sales $sales)
+    public function show($id)
     {
-        //
+        $sale = sales::with('cars', 'parts')->find($id);
+        return view('sales.view', compact('sale'));
     }
 
     /**
